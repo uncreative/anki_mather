@@ -240,4 +240,5 @@ process_card = function() {
   reduce_fraction,
   evaluate_answer,
   generate_vari_value,
-  generate_variable_values;
+  generate_variable_values,
+  getSeed;
