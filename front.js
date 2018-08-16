@@ -11,10 +11,9 @@ String.prototype.hashCode = function() {
   }
   return hash;
 };
-
 getSeed = function(s) {
-  s += Math.floor(new Date().getTime() / 120000);
-  return s;
+  var days = Math.floor(Date.now() / 86400000);
+  return days + s;
 };
 
 // https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
