@@ -52,10 +52,6 @@ Alea = function(seed) {
 replaceAll = function(str, find, replace) {
   return str.replace(new RegExp(find, "g"), replace);
 };
-// Vanilla JavaScript RegEx (Trim Leading and Trailing)
-trimWhitespace = function(str) {
-  return str.replace(/^[\s\n]+|[\s\n]+$/g, "");
-};
 
 stripHtml = function(html) {
   var tmp = document.createElement("DIV");
