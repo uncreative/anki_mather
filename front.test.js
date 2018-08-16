@@ -165,11 +165,13 @@ describe("testcase", () => {
     var rand = Alea(-1011170816);
     var rules = ["(x2-x1) != 0"];
     var front =
-      "Find the slope of the line containing the points (%x1%, %y1%) and (%x2%, %y2%). m = %numerator%/%denominator%";
+      "Find the slope of the line containing the points (%_x1_%, %_y1_%) and (%_x2_%, %_y2_%).";
+    var back = "m = %_numerator_%/%_denominator_%";
     var expectedFront =
-      "Find the slope of the line containing the points (7, -4) and (-6, 6). m = 10/-13";
-    expect(calculate_card(variables, rules, answers, front, rand)).toEqual(
-      expectedFront
-    );
+      "Find the slope of the line containing the points (7, -4) and (-6, 6).";
+    var expectedBack = "m = 10/-13";
+    expect(
+      calculate_card(variables, rules, answers, [front, back], rand)
+    ).toEqual([expectedFront, expectedBack]);
   });
 });

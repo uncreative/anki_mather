@@ -156,34 +156,45 @@ fill_template = function(template, values) {
   var templated = template.slice(0);
   templated = Object.keys(values).reduce(function(templated, val_name) {
     var value = values[val_name];
-    templated = replaceAll(templated, "%" + val_name + "%", value.value);
+    templated = replaceAll(templated, "%_" + val_name + "_%", value.value);
     return templated;
   }, templated);
   return templated;
 };
 
-calculate_card = function(variables, rules, answers, template, rand) {
+calculate_card = function(variables, rules, answers, templates, rand) {
   var varis = generate_variable_values(variables, rules, rand);
   var answers = evaluate_answer(varis, answers);
   console.log("answers", answers);
-  templated = fill_template(template, varis);
-  templated = fill_template(templated, answers);
-  return templated;
+
+  templateds = templates.reduce(function(templateds, template) {
+    templated = fill_template(template, varis);
+    templated = fill_template(templated, answers);
+    templateds.push(templated);
+    return templateds;
+  }, []);
+  return templateds;
 };
 
 format_card_input = function(
   variables_inp,
   rules_inp,
   answer_inp,
-  template_inp
+  template_inps
 ) {
-  var seedy = getSeed(template_inp.hashCode());
+  var seedy = getSeed(template_inps[0].hashCode());
   var rand = Alea(seedy);
-  variables = JSON.parse(variables_inp);
-  rules = JSON.parse(rules_inp);
-  answers = JSON.parse(answer_inp);
-  templated = calculate_card(variables, rules, answers, template_inp, rand);
-  document.getElementById("templated").innerHTML = templated;
+  var variables = JSON.parse(variables_inp);
+  var rules = JSON.parse(rules_inp);
+  var answers = JSON.parse(answer_inp);
+  var templateds = calculate_card(
+    variables,
+    rules,
+    answers,
+    template_inps,
+    rand
+  );
+  return templateds;
 };
 
 process_card = function() {
@@ -211,7 +222,18 @@ process_card = function() {
     .toString()
     .replace(/^[^\/]+\/\*!?/, "")
     .replace(/\*\/[^\/]+$/, "");
-  format_card_input(variables_inp, rules_inp, answer_inp, template_inp);
+  var back_template_inp = function() {
+    /*{{Back}}*/
+  }
+    .toString()
+    .replace(/^[^\/]+\/\*!?/, "")
+    .replace(/\*\/[^\/]+$/, "");
+  var templateds = format_card_input(variables_inp, rules_inp, answer_inp, [
+    template_inp,
+    back_template_inp
+  ]);
+
+  document.getElementById("templated").innerHTML = templateds[0];
 };
 (module.exports = generate_variable_values),
   calculate_card,
