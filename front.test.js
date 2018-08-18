@@ -156,3 +156,29 @@ describe("test generating problems with simplified fraction answer", () => {
     ).toEqual([expectedFront, expectedBack]);
   });
 });
+
+describe("generate variables with tenths", () => {
+  var variables = {
+    per_mile: {
+      min: 1,
+      max: 9,
+      post_eval: "(some_random_num / 10).toFixed(2)"
+    },
+    rent_per_day: { min: 20, max: 50 }
+  };
+  var front =
+    "A rental company charges $%_rent_per_day_% per day to rent a car plus $%_per_mile_% per mile. Find an equation that gives the daily rental in terms of the number of miles driven.";
+  var rules = [];
+  test("generate_variable_values in 10ths", () => {
+    var rand = Alea(7); //7
+
+    expect(generate_variable_values(variables, rules, rand)).toEqual({
+      per_mile: {
+        value: "0.30"
+      },
+      rent_per_day: {
+        value: 20
+      }
+    });
+  });
+});

@@ -57,16 +57,24 @@ stripHtml = function(html) {
 
 generate_vari_value = function(vari, rand) {
   var randy = rand();
-  return Math.floor(randy * (vari.max - vari.min) + vari.min);
+  var evaluated = Math.floor(randy * (vari.max - vari.min) + vari.min);
+  if (Object.prototype.hasOwnProperty.call(vari, "post_eval")) {
+    post_eval = vari.post_eval;
+    var var_eval = generate_variable_eval("some_random_num", evaluated);
+    evaluated = eval(var_eval + ";" + post_eval + ";");
+  }
+  return evaluated;
 };
-
+generate_variable_eval = function(var_name, var_value) {
+  return "var " + var_name + " = " + var_value + ";";
+};
 generate_variables_eval = function(evaluated_variables) {
   var evals = Object.keys(evaluated_variables).reduce(function(
     eval_arr,
     var_name
   ) {
     eval_arr.push(
-      "var " + var_name + " = " + evaluated_variables[var_name].value + ";"
+      generate_variable_eval(var_name, evaluated_variables[var_name].value)
     );
     return eval_arr;
   },
