@@ -18,10 +18,6 @@ getSeed = function(s) {
 
 // https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
 Alea = function(seed) {
-  if (seed === undefined) {
-    seed = +new Date() + Math.random();
-  }
-
   function Mash() {
     var n = 4022871197;
     return function(r) {
