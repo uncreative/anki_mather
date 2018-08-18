@@ -34,7 +34,6 @@ test("generate_vari_value between min and max", () => {
       min: -10,
       max: 10
     },
-
     rand
   );
   expect(v).toBeLessThanOrEqual(10);
@@ -115,9 +114,6 @@ describe("test generating problems with simplified fraction answer", () => {
     denominator: { eval: "reduced[1]" }
   };
   var rules = ["(x2-x1) != 0"];
-  afterEach(() => {
-    global.Date = RealDate;
-  });
 
   test("evaluate_answer is 4/3 for (12-0)/(16-0) with pre_eval that simpilifies fractions ", () => {
     var evaluated_variables = {
@@ -141,7 +137,6 @@ describe("test generating problems with simplified fraction answer", () => {
     });
   });
   test("calculate_card generates templates (7,-4) and (-6,6) as well as m=10/-13", () => {
-    mockDate("2018-07-17T22:34:56z");
     var variables = {
       x1: { min: -10, max: 10 },
       x2: { min: -10, max: 10 },
@@ -151,11 +146,11 @@ describe("test generating problems with simplified fraction answer", () => {
 
     var front =
       "Find the slope of the line containing the points (%_x1_%, %_y1_%) and (%_x2_%, %_y2_%).";
-    var rand = Alea(getSeed(front.hashCode()));
+    var rand = Alea(-1947058078); //Alea(​​​​​-1947058080​​​​​);
     var back = "m = %_numerator_%/%_denominator_%";
     var expectedFront =
-      "Find the slope of the line containing the points (-3, 8) and (1, -2).";
-    var expectedBack = "m = 5/-2";
+      "Find the slope of the line containing the points (1, 2) and (-7, 8).";
+    var expectedBack = "m = -3/4";
     expect(
       calculate_card(variables, rules, simplified_answers, [front, back], rand)
     ).toEqual([expectedFront, expectedBack]);
