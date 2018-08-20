@@ -232,9 +232,12 @@ process_card = function() {
     back_template_inp
   ]);
 
+  to_html(templateds);
+};
+
+to_html = function(templateds) {
   document.getElementById("templatedFront").innerHTML = templateds[0];
   document.getElementById("templated").innerHTML = templateds[1];
-
   MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
   MathJax.Hub.Queue(["Update", MathJax.Hub]);
   MathJax.Hub.Queue(["Rerender", MathJax.Hub]);
