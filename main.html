@@ -1,24 +1,56 @@
 <!doctype html>
-<html lang="en">
+<html>
+
 <head>
-    <title>Anki Card Test</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style>
-      .anki-card {
-        page-break-inside: avoid;
-        font-family: "Noto Serif", "Noto Serif CJK SC Medium";
-      }
-    </style>
+  <title>Anki Card Test</title>
+  <style>
+    .anki-card {
+      page-break-inside: avoid;
+      font-family: "Noto Serif", "Noto Serif CJK SC Medium";
+    }
+
+    textarea.short {
+      width: 100%;
+      height: 4em;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+    }
+    textarea.tall {
+      width: 49%;
+      height: 20em;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+    }
+
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </style>
+
+  <script src="jquery.js"></script>
+  <script src="mathjax/conf.js"></script>
+  <script src="mathjax/MathJax.js"></script>
+  <script src="front.js"></script>
+  <script src="note_generator.js"></script>
 </head>
+
 <body>
-<div class="card">
-  <div class="front">
-    {{Front}}
+  <div class="anki-card">
+    <p id="templatedFront">{{Front}}</p>
+    <hr id=answer>
+    <p id="templated">{{Back}}</p>
   </div>
-  <div class="back">
-    {{Back}}
+  <div class="generator">
+    <textarea class="short" id="txtFront"></textarea><br />
+    <textarea class="short" id="txtBack"></textarea><br />
+    <textarea class="short" id="txtRules"></textarea><br />
+    <textarea class="tall" id="txtVariables"></textarea>
+    <textarea class="tall" id="txtAnswers"></textarea><br />
   </div>
-</div>
 </body>
+
 </html>
