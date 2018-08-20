@@ -239,10 +239,3 @@ process_card = function() {
   MathJax.Hub.Queue(["Update", MathJax.Hub]);
   MathJax.Hub.Queue(["Rerender", MathJax.Hub]);
 };
-(module.exports = generate_variable_values),
-  calculate_card,
-  reduce_fraction,
-  evaluate_answer,
-  generate_vari_value,
-  generate_variable_values,
-  getSeed;
